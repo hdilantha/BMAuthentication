@@ -5,9 +5,9 @@
  */
 package Application;
 
-import BMAuthentication.Listener;
 import BMAuthentication.Analyzer;
-import java.util.ArrayList;
+import BMAuthentication.Listener;
+import BMAuthentication.Pattern;
 import java.util.HashMap;
 
 /**
@@ -15,13 +15,10 @@ import java.util.HashMap;
  * @author Dilantha
  */
 public class Interface extends javax.swing.JFrame {
-    ArrayList<Integer[]> storePress;
-    ArrayList<Integer[]> storeDiff;
+    HashMap<String, Pattern> userData;
     Listener regListener;
     Listener logListener;
     Analyzer analyzer;
-    ArrayList<String> phrases;
-    HashMap<String, Integer> users;
     /**
      * Creates new form Interface
      */
@@ -29,13 +26,10 @@ public class Interface extends javax.swing.JFrame {
         initComponents();
         regListener = new Listener();
         logListener = new Listener();
-        storePress = new ArrayList();
-        storeDiff = new ArrayList();
-        phrases = new ArrayList();
-        users = new HashMap();
-        regPhrase.addKeyListener(regListener);
-        logPhrase.addKeyListener(logListener);
-        analyzer = new Analyzer();
+        userData = new HashMap();
+        analyzer = new Analyzer(); 
+        textRegPhrase.addKeyListener(regListener);
+        textLogPhrase.addKeyListener(logListener);
     }
 
     /**
@@ -50,29 +44,29 @@ public class Interface extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        regName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        regPhrase = new javax.swing.JTextField();
-        regButton = new javax.swing.JButton();
-        regOut = new javax.swing.JLabel();
+        textRegName = new javax.swing.JTextField();
+        textRegPhrase = new javax.swing.JTextField();
+        buttonRegister = new javax.swing.JButton();
+        regMessage = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        logNameLabel = new javax.swing.JLabel();
-        logPhraseLabel = new javax.swing.JLabel();
-        logButton = new javax.swing.JButton();
-        logName = new javax.swing.JTextField();
-        logPhrase = new javax.swing.JTextField();
-        logOut = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        textLogName = new javax.swing.JTextField();
+        textLogPhrase = new javax.swing.JTextField();
+        buttonLog = new javax.swing.JButton();
+        logMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Name");
+        jLabel1.setText("User name");
 
         jLabel2.setText("Passphrase");
 
-        regButton.setText("Register");
-        regButton.addActionListener(new java.awt.event.ActionListener() {
+        buttonRegister.setText("Register");
+        buttonRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                regButtonActionPerformed(evt);
+                buttonRegisterActionPerformed(evt);
             }
         });
 
@@ -81,50 +75,48 @@ public class Interface extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(regOut)
-                    .addComponent(regButton)
+                    .addComponent(regMessage)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(regPhrase, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
-                            .addComponent(regName))))
-                .addContainerGap(94, Short.MAX_VALUE))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textRegPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textRegName, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(buttonRegister))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(regName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textRegName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(regPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(regButton)
-                .addGap(31, 31, 31)
-                .addComponent(regOut)
-                .addContainerGap(118, Short.MAX_VALUE))
+                    .addComponent(textRegPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(buttonRegister)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(regMessage)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
-
-        regName.getAccessibleContext().setAccessibleName("regName");
 
         jTabbedPane1.addTab("Register", jPanel1);
 
-        logNameLabel.setText("Name");
+        jLabel3.setText("User name");
 
-        logPhraseLabel.setText("Passphrase");
+        jLabel4.setText("Passphrase");
 
-        logButton.setText("Login");
-        logButton.addActionListener(new java.awt.event.ActionListener() {
+        buttonLog.setText("Log in");
+        buttonLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logButtonActionPerformed(evt);
+                buttonLogActionPerformed(evt);
             }
         });
 
@@ -133,36 +125,36 @@ public class Interface extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(logOut)
-                    .addComponent(logButton)
+                    .addComponent(logMessage)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(logNameLabel)
-                            .addComponent(logPhraseLabel))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addGap(24, 24, 24)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(logName)
-                            .addComponent(logPhrase, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                            .addComponent(textLogName, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                            .addComponent(textLogPhrase)))
+                    .addComponent(buttonLog, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logNameLabel)
-                    .addComponent(logName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(textLogName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logPhraseLabel)
-                    .addComponent(logPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(logButton)
-                .addGap(31, 31, 31)
-                .addComponent(logOut)
-                .addContainerGap(119, Short.MAX_VALUE))
+                    .addComponent(jLabel4)
+                    .addComponent(textLogPhrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
+                .addComponent(buttonLog)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(logMessage)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Login", jPanel2);
@@ -175,79 +167,65 @@ public class Interface extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void regButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regButtonActionPerformed
-        if (!regName.getText().isEmpty() && !regPhrase.getText().isEmpty() && !regListener.getPressedKeys().contains("Backspace")) {
-            users.put(regName.getText(), users.size());
-            phrases.add(regPhrase.getText());
-            storePress.add(regListener.getPressed());
-            storeDiff.add(regListener.getDifference());
-            regListener.showInfo();
-            regListener.clear();
+    private void buttonRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRegisterActionPerformed
+        if(!textRegName.getText().isEmpty() && !textRegPhrase.getText().isEmpty()) {
+            if(textRegPhrase.getText().length() >= 10) {
+               if(!regListener.getPhrase().contains("Backspace")) {
+                    userData.put(textRegName.getText(), new Pattern(regListener));
+                    regMessage.setText("User " + textRegName.getText() + " added successfully");
+                    textRegName.setText("");
+                    textRegPhrase.setText("");
+                } else {
+                    regListener.clear();
+                    textRegPhrase.setText("");
+                    regMessage.setText("Please enter phrase again");
+                } 
+            } else {
+                regListener.clear();
+                textRegPhrase.setText("");
+                regMessage.setText("Phrase should coontain at least 10 characters");
+            }
             
-            regOut.setText("User " + regName.getText()+ " added successfully");
-            regName.setText("");
-            regPhrase.setText("");
         } else {
             regListener.clear();
-            regPhrase.setText("");
-            regOut.setText("Please enter user details again");
-        }// TODO add your handling code here:
-    }//GEN-LAST:event_regButtonActionPerformed
+            regMessage.setText("Please fill all fields");
+        }
+    }//GEN-LAST:event_buttonRegisterActionPerformed
 
-    private void logButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logButtonActionPerformed
-        if (users.containsKey(logName.getText())) {
-            int i = users.get(logName.getText());
-            if(phrases.contains(logPhrase.getText())) {
-                if(i == analyzer.analyze(logListener.getPressed(), logListener.getDifference(), storePress, storeDiff) - 1) {
-                    logListener.clear();
-                    
-                    logOut.setText("User " + logName.getText() + " is authenticated");
-                    logName.setText("");
-                    logPhrase.setText("");
+    private void buttonLogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogActionPerformed
+        if(userData.containsKey(textLogName.getText())) {
+            if(userData.get(textLogName.getText()).getPhrase().equalsIgnoreCase(textLogPhrase.getText())) {
+                if(analyzer.analyze(new Pattern(logListener), userData.get(textLogName.getText()), 70)) {
+                    logMessage.setText("User " + textLogName.getText() + " is authenticated");
+                    textLogName.setText("");
+                    textLogPhrase.setText("");
                 } else {
-                    logOut.setText("Try again");
+                    logListener.clear();
+                    textLogPhrase.setText("");
+                    logMessage.setText("Please try again");
                 }
             } else {
                 logListener.clear();
-                logOut.setText("Enter phrase correctly");
+                textLogPhrase.setText("");
+                logMessage.setText("Invalid passphrase");
             }
         } else {
-            logOut.setText("Enter Name correctly");
+            logListener.clear();
+            logMessage.setText("Invalid user name");
         }
-    }//GEN-LAST:event_logButtonActionPerformed
+    }//GEN-LAST:event_buttonLogActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -258,20 +236,20 @@ public class Interface extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonLog;
+    private javax.swing.JButton buttonRegister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton logButton;
-    private javax.swing.JTextField logName;
-    private javax.swing.JLabel logNameLabel;
-    private javax.swing.JLabel logOut;
-    private javax.swing.JTextField logPhrase;
-    private javax.swing.JLabel logPhraseLabel;
-    private javax.swing.JButton regButton;
-    private javax.swing.JTextField regName;
-    private javax.swing.JLabel regOut;
-    private javax.swing.JTextField regPhrase;
+    private javax.swing.JLabel logMessage;
+    private javax.swing.JLabel regMessage;
+    private javax.swing.JTextField textLogName;
+    private javax.swing.JTextField textLogPhrase;
+    private javax.swing.JTextField textRegName;
+    private javax.swing.JTextField textRegPhrase;
     // End of variables declaration//GEN-END:variables
 }

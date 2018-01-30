@@ -16,14 +16,12 @@ import java.util.ArrayList;
 public class Listener implements KeyListener{
     ArrayList<Long> pressed;
     ArrayList<Long> released;
-    ArrayList<String> pressedKeys;
-    ArrayList<String> releasedKeys;
+    ArrayList<String> keys;
     
     public Listener() {
         pressed = new ArrayList();
         released = new ArrayList();
-        pressedKeys = new ArrayList();
-        releasedKeys = new ArrayList();
+        keys = new ArrayList();
     }
     @Override
     public void keyTyped(KeyEvent e) {
@@ -33,77 +31,41 @@ public class Listener implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         pressed.add(System.currentTimeMillis());
-        pressedKeys.add(KeyEvent.getKeyText(e.getKeyCode()));
+        keys.add(KeyEvent.getKeyText(e.getKeyCode()));
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
         released.add(System.currentTimeMillis());
-        releasedKeys.add(KeyEvent.getKeyText(e.getKeyCode()));
     }
     
-    public void showInfo() {
-        int temp;
-        for(int i = 1; i < pressed.size(); i++) {
-            temp = (int) (pressed.get(i) - pressed.get(i - 1));
-            System.out.print(temp + " ");
-        }
-        System.out.print("   ");
-        for(int i = 0; i < released.size(); i++) {
-            temp = (int) (released.get(i) - pressed.get(i));
-            System.out.print(temp + " ");
-        }
-        System.out.print("   ");
-        for(int i = 0; i < pressedKeys.size(); i++) {
-            System.out.print(pressedKeys.get(i) + " ");
-        }
-        System.out.println("");
+    public ArrayList<Long> getPressed() {
+        return pressed;
     }
     
-    public Integer[] getPressed() {
-        Integer[] temp = new Integer[pressed.size() - 1];
-        for(int i = 1; i < pressed.size(); i++) {
-            temp[i - 1] = (int) (pressed.get(i) - pressed.get(i - 1));
-        }
-        return temp;
+    public ArrayList<Long> getReleased() {
+        return released;
     }
     
-    public String getPressedKeys() {
-        String temp = "";
-        for(int i = 0; i < pressedKeys.size() - 1; i++) {
-            temp = temp + pressedKeys.get(i) + " ";
-        }
-        temp = temp + pressedKeys.get(pressedKeys.size() - 1);
-        return temp;
-    }
-    
-    public Integer[] getReleased() {
-        Integer[] temp = new Integer[released.size() - 1];
-        for(int i = 1; i < released.size(); i++) {
-            temp[i - 1] = (int) (released.get(i) - released.get(i - 1));
-        }
-        return temp;
-    }
-    
-    public String[] getReleasedKeys() {
-        String[] temp = new String[releasedKeys.size()];
-        for(int i = 0; i < releasedKeys.size(); i++) {
-            temp[i] = releasedKeys.get(i);
-        }
-        return temp;
-    }
-    
-    public Integer[] getDifference() {
-        Integer[] temp = new Integer[pressed.size()];
-        for(int i = 0; i < pressed.size(); i++) {
-            temp[i] = (int) (pressed.get(i) - released.get(i));
-        }
-        return temp;
-    }
     public void clear() {
         pressed.clear();
         released.clear();
-        pressedKeys.clear();
-        releasedKeys.clear();
+        keys.clear();
+    }
+    
+    public String[] getKeys() {
+        String[] temp = new String[keys.size()];
+        for(int i = 0; i < keys.size(); i++) {
+            temp[i] = keys.get(i);
+        }
+        return temp;
+    }
+    
+    public String getPhrase() {
+        String temp = "";
+        for (String key : keys) {
+            temp = temp + key;
+        }
+        return temp;
     }
 }
